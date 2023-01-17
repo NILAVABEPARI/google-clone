@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 const StateContext = createContext();
-const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
+const baseUrl = "https://google-web-search1.p.rapidapi.com";
 
 export const StateContextProvider = ({ children }) => {
 	const [results, setResults] = useState([]);
@@ -14,24 +14,15 @@ export const StateContextProvider = ({ children }) => {
 		const res = await fetch(`${baseUrl}${url}`, {
 			method: "GET",
 			headers: {
-				"X-User-Agent": "desktop",
-				"X-Proxy-Location": "EU",
-				"x-rapidapi-host": "google-search3.p.rapidapi.com",
-				"x-rapidapi-key": process.env.REACT_APP_API_KEY,
+				"X-RapidAPI-Host": "google-web-search1.p.rapidapi.com",
+				"X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
 			},
 		});
 
 		const data = await res.json();
-		console.log(data);
-		if (url.includes("/news")) {
-			setResults(data.entries);
-		} else if (url.includes("/image")) {
-			setResults(data.image_results);
-		} else {
-			setResults(data.results);
-		}
+		// console.log(data);
 
-		// setResults(data);
+		setResults(data.results);
 		setLoading(false);
 	};
 
